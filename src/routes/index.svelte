@@ -1,3 +1,5 @@
-<h1 class="text-3xl font-bold underline">
-    Hello world!
-</h1>
+<script lang="ts">
+    import Header from '$lib/components/Header.svelte';
+</script>
+
+<Header />
