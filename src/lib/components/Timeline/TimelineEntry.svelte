@@ -31,12 +31,12 @@
         : '';
 
     const stagger = index % 2 === 0 
-        ? 'ml-[50%]'
-        : 'mr-[50%]';
+        ? 'md:ml-[50%]'
+        : 'md:mr-[50%]';
 
     const date = `${entry.Day} ${month} ${entry.Year}`
 </script>
-<div class="p-10 -mt-4 text-white border-2 border-white rounded min-w-[45%] max-w-[45%] {stagger}">
+<div class="p-10 sm:mb-2 md:-mt-4 text-white border-2 border-white rounded md:min-w-[45%] md:max-w-[45%] {stagger}">
     <p class="mb-2 text-sm">{date}</p>
     <h3 class="mb-3 text-xl">{entry.Headline}</h3>
     <p>{entry.Text}</p>
