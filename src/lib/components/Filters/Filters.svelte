@@ -6,6 +6,6 @@
 
 <div class="flex flex-row justify-end pb-10 px-5 bg-slate-800">
 	{#each filters as filter}
-		<FilterComponent {filter} />
+		<FilterComponent {filter} on:filterUpdated />
 	{/each}
 </div>

@@ -10,4 +10,5 @@ export type TimelineEntryType = {
     Text?: string,
     Group?: string,
     Type?: string,
+    EndYear: string,
 }
