@@ -1,11 +1,11 @@
 <script lang="ts">
-    import Filter from '$lib/components/Filters/Filter.svelte';
-	import type { FiltersType } from 'src/types/filters.type';
-	export let filters: FiltersType = [];
+    import FilterComponent from '$lib/components/Filters/Filter.svelte';
+	import type Filter from 'src/classes/filter';
+	export let filters: Filter[] = [];
 </script>
 
 <div class="flex flex-row justify-end pb-10 px-5 bg-slate-800">
 	{#each filters as filter}
-		<Filter {filter} />
+		<FilterComponent {filter} />
 	{/each}
 </div>

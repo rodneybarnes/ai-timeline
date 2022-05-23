@@ -1,7 +1,7 @@
 import type { TimelineEntryType } from "../types/timeline-entry.type";
 
 /**
- * @typedef {Object} TimelineData - A class that encapsulates the timeline data and its properties.
+ * @class A class that encapsulates the timeline data and its properties.
  * @property {TimelineEntryType[]} data - The unfiltered data.
  * @property {TimelineEntryType[]} eras - The timeline entries classified as eras; these do not have specific timeline data in them, but rather are more like categories.
  * @property {string[]} groups - A list of the unique group categories that timeline entries may be associated with.
@@ -10,11 +10,15 @@ import type { TimelineEntryType } from "../types/timeline-entry.type";
 class TimelineData {
     data: TimelineEntryType[];
 
+    /**
+     * Create a new TimelineData class :success-baby:
+     * @param {TimelineEntryType[]} fetchedData The timeline data fetched from...somewhere else...
+     */
     constructor(fetchedData: TimelineEntryType[]) {
         this.data = fetchedData;
     }
 
-    get eras():TimelineEntryType[] {
+    get eras(): TimelineEntryType[] {
         return this.data.filter((i) => i.Type === 'era');
     }
 
