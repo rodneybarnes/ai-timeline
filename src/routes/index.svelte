@@ -1,17 +1,13 @@
 <script context="module" lang="ts">
+	import { fetchTimelineData } from '../utils/api';
+	import type TimelineData from 'src/classes/timeline-data';
 	export async function load({ fetch }) {
-		const url = 'https://opensheet.elk.sh/1xOrcYodnYn-mR9WCXsD-x6JxNWusemQD4gXuArqvaeA/Sheet1';
-		const response = await fetch(url);
-		const body = await response.json();
-		const eras = body.filter((i) => i.Type === 'era');
-		const allGroups = body.filter((i) => i.Group !== undefined).map((i) => i.Group);
-		const groups = [...new Set(allGroups)];
-		const entries = body.filter((i) => i.Type === undefined || i.Type === '');
+		const timelineData: TimelineData = await fetchTimelineData(fetch);
 		return {
 			props: {
-				entries,
-				eras,
-				groups
+				entries: timelineData.entries,
+				eras: timelineData.eras,
+				groups: timelineData.groups
 			}
 		};
 	}
@@ -22,12 +18,12 @@
 	import Header from '$lib/components/Header.svelte';
 	import Timeline from '$lib/components/Timeline/Timeline.svelte';
 
-	import type { EraType } from 'src/types/era.type';
 	import type { FilterType } from 'src/types/filter.type';
 	import type { FiltersType } from 'src/types/filters.type';
 	import type { TimelineType } from 'src/types/timeline.type';
+	import type { TimelineEntryType } from 'src/types/timeline-entry.type';
 
-	export let eras: EraType[];
+	export let eras: TimelineEntryType[];
 	export let entries: TimelineType;
 	export let groups: string[];
 

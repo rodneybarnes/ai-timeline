@@ -8,5 +8,6 @@ export type TimelineEntryType = {
     Year: string,
     Headline: string,
     Text: string,
-    Group: string
+    Group: string,
+    Type: string,
 }

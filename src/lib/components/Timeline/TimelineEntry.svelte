@@ -6,7 +6,8 @@
         Year: '',
         Headline: '',
         Text: '',
-        Group: ''
+        Group: '',
+        Type: ''
     };
 
     export let index = 0;
