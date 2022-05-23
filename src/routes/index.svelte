@@ -1,9 +1,10 @@
 <script context="module" lang="ts">
 	import { fetchTimelineData } from '../utils/api';
-    import type { TimelineEntryType } from 'src/types/timeline-entry.type';
+    import type { RawTimelineEntryType } from 'src/types/raw-timeline-entry.type';
+    
 	
 	export async function load({ fetch }) {
-		const rawTimelineData: TimelineEntryType[] = await fetchTimelineData(fetch);
+		const rawTimelineData: RawTimelineEntryType[] = await fetchTimelineData(fetch);
 		return {
 			props: {
 				rawTimelineData
@@ -19,7 +20,7 @@
 	import Filter from '../classes/filter';
     import TimelineData from '../classes/timeline-data';
 
-	export let rawTimelineData: TimelineEntryType[]
+	export let rawTimelineData: RawTimelineEntryType[]
 
     // Q: Why not have the api call return a new TimelineData?
     // A: Svelte seems to wipe or sanitize the instantiated class :(
@@ -27,7 +28,7 @@
 
 	const eraFilter = new Filter(
 		'era',
-		timelineData.eras.map((era) => era.Headline)
+		timelineData.eras.map((era) => era.headline)
 	);
 	const groupFilter = new Filter('group', timelineData.groups);
 	const filters: Filter[] = [eraFilter, groupFilter];

@@ -1,14 +1,13 @@
 /**
- * This is the type that comes in from the fetch to the Google Sheets data,
- * which is why the property names are upper-cased.
+ * The timeline entry type we'll use for everything internal.
  */
 export type TimelineEntryType = {
-    Day: string,
-    Month: string,
-    Year: string,
-    Headline: string,
-    Text?: string,
-    Group?: string,
-    Type?: string,
-    EndYear: string,
+    day?: number,
+    month?: number,
+    year: number,
+    headline: string,
+    text?: string,
+    group?: string,
+    type?: string,
+    endYear: number,
 }

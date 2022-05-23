@@ -14,7 +14,7 @@
 </script>
 
 <select class="mr-3" bind:value={selectedValue} on:change={emitChange}>
-	<option>Filter by {filter.name}</option>
+	<option value="">Filter by {filter.name}</option>
 	{#each filter.values as value}
 		<option {value}>{value}</option>
 	{/each}
