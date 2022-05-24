@@ -1,3 +1,4 @@
+import type { FilterParam } from "src/types/filter-param.type";
 import type { RawTimelineEntryType } from "src/types/raw-timeline-entry.type";
 import type { TimelineEntryType } from "../types/timeline-entry.type";
 
@@ -19,6 +20,11 @@ class TimelineData {
         this.data = fetchedData.map(this.#mapRawDataToTimeLineEntry);
     }
 
+    /**
+     * Parses a raw timeline entry into an internal type we can more appropriately use.
+     * @param {RawTimelineEntryType} rawData A raw timeline data entry.
+     * @returns {TimelineEntryType} The validated timeline entry type that we will use internally.
+     */
     #mapRawDataToTimeLineEntry(rawData: RawTimelineEntryType): TimelineEntryType {
         return { 
             ...rawData,
@@ -47,38 +53,47 @@ class TimelineData {
 
     /**
      * Filters the timeline entries.
-     * @param {string} by The category to filter the entries by.
-     * @param {string} selectedValue The value to filter for.
+     * @param {FilterParam[]} filterParams The filter parameters to apply.
      * @returns {TimelineEntryType[]} The filtered entries.
      */
-    filterEntries(by: string, selectedValue: string): TimelineEntryType[] {
-        if (!selectedValue) {
-            return this.entries;
-        }
+    filterEntries(filterParams: FilterParam[]): TimelineEntryType[] {
 
-        switch (by) {
-            case 'era':
-                return this.#filterByEra(selectedValue);
-            case 'group':
-                return this.#filterByGroup(selectedValue);
-            default:
-                return this.data;
-        }
+        let filteredEntries = [...this.entries];
+
+        filterParams.forEach((param) => {
+            switch (param.by) {
+                case 'era':
+                    filteredEntries = this.#filterByEra(param.value, filteredEntries);
+                    break;
+                case 'group':
+                    filteredEntries = this.#filterByGroup(param.value, filteredEntries);
+                    break;
+                default:
+                    break;
+            }
+        })
+
+        return filteredEntries;
     }
 
     /**
      * Filters the timeline entries by the selected era.
      * @param {string} selectedEra The selected era to filter for.
+     * @param {TimelineEntryType[]} entries The entries to filter.
      * @returns {TimelineEntryType[]} A list of timeline entries filtered by the selected era.
      */
-    #filterByEra(selectedEra: string): TimelineEntryType[] {
+    #filterByEra(selectedEra: string, entries: TimelineEntryType[]): TimelineEntryType[] {
+        if (!selectedEra) {
+            return entries;
+        }
+
         const foundEra = this.eras.find((era) => era.headline === selectedEra);
 
         if (!foundEra) {
             throw new Error(`Invalid era passed to filter: ${selectedEra}`);
         }
 
-        return this.entries.filter((timeLineEntry) =>
+        return entries.filter((timeLineEntry) =>
             Number(timeLineEntry.year) >= Number(foundEra.year) &&
             Number(timeLineEntry.year) <= Number(foundEra.endYear));
     }
@@ -88,8 +103,12 @@ class TimelineData {
      * @param {string} group The group to filter by. 
      * @returns {TimelineEntryType[]} A list of timeline entries filtered by the selected group.
      */
-    #filterByGroup(group: string): TimelineEntryType[] {
-        return this.entries.filter((timeLineEntry) => timeLineEntry.group === group);
+    #filterByGroup(group: string, entries: TimelineEntryType[]): TimelineEntryType[] {
+        if (!group) {
+            return entries;
+        }
+
+        return entries.filter((timeLineEntry) => timeLineEntry.group === group);
     }
 }
 

@@ -1,15 +1,16 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import type Filter from 'src/classes/filter';
+
+    // Props
 	export let filter: Filter = {
 		name: '',
 		values: []
 	};
 
+    export let selectedValue;
+
 	const dispatch = createEventDispatcher();
-
-	let selectedValue;
-
 	const emitChange = () => dispatch('filterUpdated', { filterName: filter.name, selectedValue });
 </script>
 
