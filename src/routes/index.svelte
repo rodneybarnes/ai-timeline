@@ -1,6 +1,11 @@
 <script context="module" lang="ts">
 	import { fetchTimelineData } from '../utils/api';
 	import type { RawTimelineEntryType } from 'src/types/raw-timeline-entry.type';
+    
+    // We need to manually turn off prerendering here so we can use `url.searchParams`, otherwise
+    // we'd be asking Sveltekit to prerender a potentially infinite number of pages, as there
+    // could be a potentially infinite number of searchParams.
+    export const prerender = false;
 
 	export async function load({ fetch }) {
 		const rawTimelineData: RawTimelineEntryType[] = await fetchTimelineData(fetch);
