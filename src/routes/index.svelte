@@ -57,10 +57,22 @@
 		filterParams = URLHelper.getFilterParams(Array.from($page.url.searchParams.entries()));
 		filteredEntries = timelineData.filterEntries(filterParams);
 	};
+
+	const handleClearParams = () => {
+        Array.from($page.url.searchParams.keys()).forEach((key) => $page.url.searchParams.delete(key));
+        goto($page.url.href);
+        filterParams = [];
+        filteredEntries = [...timelineData.entries];
+    };
 </script>
 
 <div class="flex flex-col h-screen">
 	<Header />
-	<Filters {filters} {filterParams} on:filterUpdated={handleFilterUpdate} />
+	<Filters
+		{filters}
+		{filterParams}
+		on:filterUpdated={handleFilterUpdate}
+		on:clearParams={handleClearParams}
+	/>
 	<Timeline entries={filteredEntries} />
 </div>
