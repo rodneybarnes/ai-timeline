@@ -27,7 +27,7 @@
         12: 'December'
     };
 
-    const month = months[entry.month] 
+    $: month = months[entry.month] 
         ? months[entry.month] + ', '
         : '';
 
@@ -35,7 +35,7 @@
         ? 'md:ml-[50%]'
         : 'md:mr-[50%]';
 
-    const date = `${entry.day} ${month} ${entry.year}`
+    $: date = `${entry.day} ${month} ${entry.year}`;    // Needs to be reactive, otherwise parts of the date will not re-render.
 </script>
 <div class="p-10 sm:mb-2 md:-mt-4 text-white border-2 border-white rounded md:min-w-[45%] md:max-w-[45%] {stagger}">
     <p class="mb-2 text-sm">{date}</p>

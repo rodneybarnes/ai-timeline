@@ -57,7 +57,6 @@ class TimelineData {
      * @returns {TimelineEntryType[]} The filtered entries.
      */
     filterEntries(filterParams: FilterParam[]): TimelineEntryType[] {
-
         let filteredEntries = [...this.entries];
 
         filterParams.forEach((param) => {
@@ -88,7 +87,6 @@ class TimelineData {
         }
 
         const foundEra = this.eras.find((era) => era.headline === selectedEra);
-
         if (!foundEra) {
             throw new Error(`Invalid era passed to filter: ${selectedEra}`);
         }
