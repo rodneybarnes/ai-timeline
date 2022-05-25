@@ -5,7 +5,7 @@
     const dispatch = createEventDispatcher();
 
     const dispatchSearch = (ev) => {
-        if (ev.key === "Enter" || ev.key === "Backspace") {
+        if (ev.key === "Enter" || (ev.key === "Backspace" && !searchValue)) {
             dispatch('searchSubmitted', { searchValue });
         }
     }
