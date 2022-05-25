@@ -26,7 +26,7 @@ class TimelineData {
      * @returns {TimelineEntryType} The validated timeline entry type that we will use internally.
      */
     #mapRawDataToTimeLineEntry(rawData: RawTimelineEntryType): TimelineEntryType {
-        return { 
+        return {
             ...rawData,
             day: rawData.Day && Number(rawData.Day),
             month: rawData.Month && Number(rawData.Month),
@@ -67,6 +67,9 @@ class TimelineData {
                 case 'group':
                     filteredEntries = this.#filterByGroup(param.value, filteredEntries);
                     break;
+                case 'search':
+                    filteredEntries = this.#filterByHeadlineAndText(param.value, filteredEntries);
+                    break;
                 default:
                     break;
             }
@@ -99,6 +102,7 @@ class TimelineData {
     /**
      * Filters the timeline entries by the selected group.
      * @param {string} group The group to filter by. 
+     * @param entries The entries to filter on.
      * @returns {TimelineEntryType[]} A list of timeline entries filtered by the selected group.
      */
     #filterByGroup(group: string, entries: TimelineEntryType[]): TimelineEntryType[] {
@@ -107,6 +111,22 @@ class TimelineData {
         }
 
         return entries.filter((timeLineEntry) => timeLineEntry.group === group);
+    }
+
+    /**
+     * Searches the given entries for the given value.
+     * @param {string} searchValue The value to search by.
+     * @param {TimeLineEntryType[]} entries The entries to search.
+     * @returns {TimeLineEntryType[]} A list of timeline entries filtered by the search.
+     */
+    #filterByHeadlineAndText(searchValue: string, entries: TimelineEntryType[]): TimelineEntryType[] {
+        if (!searchValue) {
+            return entries;
+        }
+
+        return entries.filter((entry) => 
+            entry.headline?.toLowerCase().includes(searchValue.toLowerCase()) || 
+            entry.text?.toLowerCase().includes(searchValue.toLowerCase()));
     }
 }
 

@@ -10,9 +10,9 @@ class URLHelper {
      * @param {[string, string][]} urlSearchParams The query parameters in the URL.
      * @returns {FilterParam[]} The current filter parameters.
      */
-    static getFilterParams(urlSearchParams: [string, string][]): FilterParam[] {
-        return urlSearchParams.map(this.#mapFilterParam)
-    }
+    static getFilterParams = (urlSearchParams: [string, string][]): FilterParam[] =>
+        urlSearchParams.map(this.#mapFilterParam);
+
 
     /**
      * Maps a key-value pair from the url query params to an internal FilterParam type.
@@ -20,7 +20,7 @@ class URLHelper {
      * @param {string} value The value.
      * @returns {FilterParam} The FilterParam object.
      */
-     static #mapFilterParam([key, value]: [string, string]): FilterParam {
+    static #mapFilterParam([key, value]: [string, string]): FilterParam {
         return { by: key, value };
     }
 }

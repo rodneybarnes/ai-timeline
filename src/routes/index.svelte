@@ -1,11 +1,11 @@
 <script context="module" lang="ts">
 	import { fetchTimelineData } from '../utils/api';
 	import type { RawTimelineEntryType } from 'src/types/raw-timeline-entry.type';
-    
-    // We need to manually turn off prerendering here so we can use `url.searchParams`, otherwise
-    // we'd be asking Sveltekit to prerender a potentially infinite number of pages, as there
-    // could be a potentially infinite number of searchParams.
-    export const prerender = false;
+
+	// We need to manually turn off prerendering here so we can use `url.searchParams`, otherwise
+	// we'd be asking Sveltekit to prerender a potentially infinite number of pages, as there
+	// could be a potentially infinite number of searchParams.
+	export const prerender = false;
 
 	export async function load({ fetch }) {
 		const rawTimelineData: RawTimelineEntryType[] = await fetchTimelineData(fetch);
@@ -23,7 +23,7 @@
 	import { goto } from '$app/navigation';
 
 	// Components
-	import Filters from '$lib/components/Filters/Filters.svelte';
+	import FiltersAndSearch from '$lib/components/FiltersAndSearch/FiltersAndSearch.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Timeline from '$lib/components/Timeline/Timeline.svelte';
 
@@ -64,16 +64,16 @@
 	};
 
 	const handleClearParams = () => {
-        Array.from($page.url.searchParams.keys()).forEach((key) => $page.url.searchParams.delete(key));
-        goto($page.url.href);
-        filterParams = [];
-        filteredEntries = [...timelineData.entries];
-    };
+		Array.from($page.url.searchParams.keys()).forEach((key) => $page.url.searchParams.delete(key));
+		goto($page.url.href);
+		filterParams = [];
+		filteredEntries = [...timelineData.entries];
+	};
 </script>
 
 <div class="flex flex-col h-screen">
 	<Header />
-	<Filters
+	<FiltersAndSearch
 		{filters}
 		{filterParams}
 		on:filterUpdated={handleFilterUpdate}
