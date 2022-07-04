@@ -1,4 +1,4 @@
-import type { FilterParam } from "src/types/filter-param.type";
+import type { QueryParam } from "src/types/query-param.type";
 import type { RawTimelineEntryType } from "src/types/raw-timeline-entry.type";
 import type { TimelineEntryType } from "../types/timeline-entry.type";
 
@@ -52,15 +52,25 @@ class TimelineData {
     }
 
     /**
-     * Filters the timeline entries.
-     * @param {FilterParam[]} filterParams The filter parameters to apply.
-     * @returns {TimelineEntryType[]} The filtered entries.
+     * Filters and orders the timeline entries.
+     * @param {QueryParam[]} queryParams The filter and order parameters to apply.
+     * @returns {TimelineEntryType[]} The filtered and ordered entries.
      */
-    filterEntries(filterParams: FilterParam[]): TimelineEntryType[] {
+    filterEntries(queryParams: QueryParam[]): TimelineEntryType[] {
         let filteredEntries = [...this.entries];
+        filteredEntries = this.#applyFilters(queryParams, filteredEntries);
 
-        filterParams.forEach((param) => {
-            switch (param.by) {
+        const orderBy = queryParams.find(param => param.key === 'orderBy')?.value;
+        if (orderBy) {
+            this.#applyOrder(orderBy, filteredEntries);
+        }
+
+        return filteredEntries;
+    }
+
+    #applyFilters(queryParams: QueryParam[], filteredEntries): TimelineEntryType[] {
+        queryParams.forEach((param) => {
+            switch (param.key) {
                 case 'era':
                     filteredEntries = this.#filterByEra(param.value, filteredEntries);
                     break;
@@ -73,7 +83,7 @@ class TimelineData {
                 default:
                     break;
             }
-        })
+        });
 
         return filteredEntries;
     }
@@ -124,10 +134,25 @@ class TimelineData {
             return entries;
         }
 
-        return entries.filter((entry) => 
-            entry.headline?.toLowerCase().includes(searchValue.toLowerCase()) || 
+        return entries.filter((entry) =>
+            entry.headline?.toLowerCase().includes(searchValue.toLowerCase()) ||
             entry.text?.toLowerCase().includes(searchValue.toLowerCase()));
     }
+
+    /**
+     * Orders the given timeline entries.
+     * @param orderBy The direction to order by.
+     * @param filteredEntries The entries to order.
+     * @returns A reference to the entries passed in, which have been sorted in place.
+     */
+    #applyOrder = (orderBy, filteredEntries): TimelineEntryType[] =>
+        filteredEntries.sort((first, second) => {
+            if (orderBy === 'asc') {
+                return new Date(first.year, first.month, first.day).getTime() - new Date(second.year, second.month, second.day).getTime()
+            } else {
+                return new Date(second.year, second.month, second.day).getTime() - new Date(first.year, first.month, first.day).getTime()
+            }
+        });
 }
 
 export default TimelineData;

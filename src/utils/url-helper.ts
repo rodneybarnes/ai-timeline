@@ -1,4 +1,4 @@
-import type { FilterParam } from "src/types/filter-param.type";
+import type { QueryParam } from "src/types/query-param.type";
 
 /**
  * A collection of static helper functions for the URL.
@@ -6,31 +6,32 @@ import type { FilterParam } from "src/types/filter-param.type";
 class URLHelper {
 
     /**
-     * Parses the current filter parameters from the URL.
+     * Parses all of the query parameters in the URL.
      * @param {[string, string][]} urlSearchParams The query parameters in the URL.
-     * @returns {FilterParam[]} The current filter parameters.
+     * @returns {QueryParam[]} The current filter parameters.
      */
-    static getFilterParams = (urlSearchParams: [string, string][]): FilterParam[] =>
-        urlSearchParams.map(this.#mapFilterParam);
+    static getQueryParams = (urlSearchParams: [string, string][]): QueryParam[] =>
+        urlSearchParams.map(this.#mapQueryParam);
 
 
     /**
-     * Maps a key-value pair from the url query params to an internal FilterParam type.
+     * Maps a key-value pair from the url query params to an internal QueryParam type for easier use.
      * @param {string} key The key.
      * @param {string} value The value.
-     * @returns {FilterParam} The FilterParam object.
+     * @returns {QueryParam} The FilterParam object.
      */
-    static #mapFilterParam([key, value]: [string, string]): FilterParam {
-        return { by: key, value };
+    static #mapQueryParam([key, value]: [string, string]): QueryParam {
+        return { key, value };
     }
 
     /**
-     * Returns the value of the id param if it exists.
+     * Returns the value of a given param if it exists.
+     * @param param The param to search for.
      * @param urlSearchParams The query parameters in the URL.
      * @returns {string | undefined} The value if found, otherwise undefined
      */
-    static getSelectedEntryId = (urlSearchParams: [string, string][]): string | undefined =>
-        urlSearchParams.find(([key]) => key === 'id')?.[1];
+    static getQueryParam = (param, urlSearchParams: [string, string][]): string | undefined =>
+        urlSearchParams.find(([key]) => key === param)?.[1];
 }
 
 export default URLHelper;

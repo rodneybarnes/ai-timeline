@@ -23,7 +23,7 @@
 	import { goto } from '$app/navigation';
 
 	// Components
-	import FiltersAndSearch from '$lib/components/FiltersAndSearch/FiltersAndSearch.svelte';
+	import Filters from '$lib/components/Filters/Filters.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Timeline from '$lib/components/Timeline/Timeline.svelte';
 
@@ -32,7 +32,7 @@
 	import TimelineData from '../classes/timeline-data';
 
 	import URLHelper from '../utils/url-helper';
-	import type { FilterParam } from 'src/types/filter-param.type';
+	import type { QueryParam } from 'src/types/query-param.type';
 
 	// Props
 	export let rawTimelineData: RawTimelineEntryType[];
@@ -41,29 +41,15 @@
 	// A: Svelte seems to wipe or sanitize the instantiated class :(
 	const timelineData = new TimelineData(rawTimelineData);
 
-	// Local data
-	const eraFilter = new Filter(
-		'era',
-		timelineData.eras.map((era) => era.headline)
-	);
-	const groupFilter = new Filter('group', timelineData.groups);
-	const filters: Filter[] = [eraFilter, groupFilter];
-
-	let filterParams: FilterParam[] = URLHelper.getFilterParams(
-		Array.from($page.url.searchParams.entries())
-	);
-	let filteredEntries = timelineData.filterEntries(filterParams);
-
-	let selectedEntryId = URLHelper.getSelectedEntryId(
-		Array.from($page.url.searchParams.entries())
-	);
-
 	// Methods and handlers
+	const getQueryParams = () =>
+		URLHelper.getQueryParams(Array.from($page.url.searchParams.entries()));
+
 	const handleFilterUpdate = ({ detail: { filterName, selectedValue } }) => {
 		$page.url.searchParams.set(filterName, selectedValue);
 		goto($page.url.href);
 
-		filterParams = URLHelper.getFilterParams(Array.from($page.url.searchParams.entries()));
+		filterParams = getQueryParams();
 		filteredEntries = timelineData.filterEntries(filterParams);
 	};
 
@@ -74,19 +60,32 @@
 		filteredEntries = [...timelineData.entries];
 	};
 
-	const handleIdSelected = ({ detail: { id }}) => {
+	const handleIdSelected = ({ detail: { id } }) => {
 		$page.url.searchParams.set('id', id);
 		goto($page.url.href);
-	}
+	};
+
+	// Local data
+	const eraFilter = new Filter(
+		'era',
+		timelineData.eras.map((era) => era.headline)
+	);
+	const groupFilter = new Filter('group', timelineData.groups);
+	const filters: Filter[] = [eraFilter, groupFilter];
+
+	let filterParams: QueryParam[] = getQueryParams();
+	let filteredEntries = timelineData.filterEntries(filterParams);
+
+	let selectedEntryId = URLHelper.getQueryParam('id', Array.from($page.url.searchParams.entries()));
 </script>
 
 <div class="flex flex-col items-center min-h-screen bg-zinc-900">
 	<Header />
-	<FiltersAndSearch
+	<Filters
 		{filters}
 		{filterParams}
 		on:filterUpdated={handleFilterUpdate}
 		on:clearParams={handleClearParams}
 	/>
-	<Timeline entries={filteredEntries} {selectedEntryId} on:idSelected={handleIdSelected}/>
+	<Timeline entries={filteredEntries} {selectedEntryId} on:idSelected={handleIdSelected} />
 </div>
