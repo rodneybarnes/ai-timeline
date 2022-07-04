@@ -4,7 +4,7 @@
 	export let entries: TimelineEntryType[] = [];
 </script>
 
-<div class="flex flex-col items-center flex-grow bg-slate-800">
+<div class="flex flex-col items-center flex-grow">
 	{#each entries as entry, index}
 		<TimelineEntry {entry} {index} />
 	{/each}
