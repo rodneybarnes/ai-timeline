@@ -71,7 +71,7 @@
 	};
 </script>
 
-<div class="flex flex-col h-screen bg-slate-800">
+<div class="flex flex-col items-center min-h-screen bg-zinc-900">
 	<Header />
 	<FiltersAndSearch
 		{filters}

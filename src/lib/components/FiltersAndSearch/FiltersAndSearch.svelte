@@ -16,7 +16,7 @@
 		dispatch('filterUpdated', { filterName: 'search', selectedValue: searchValue });
 </script>
 
-<div class="flex flex-col md:flex-row justify-end pb-10 px-5 bg-slate-800">
+<div class="flex flex-col md:flex-row justify-center mb-10 p-5 bg-gray-700 w-full">
 	{#each filters as filter}
 		<FilterComponent
 			{filter}
