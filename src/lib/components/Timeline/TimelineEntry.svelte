@@ -55,7 +55,7 @@
 >
 	<p class="mb-2 text-sm">{date}</p>
 	<h3 id={entryId} class="mb-3 text-xl">
-		<button class=" text-left" on:click={dispatchIdSelected}>
+		<button class=" text-left" on:click|preventDefault={dispatchIdSelected}>
 			{entry.headline}
 		</button>
 	</h3>

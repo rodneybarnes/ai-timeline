@@ -5,7 +5,7 @@
 	export let entries: TimelineEntryType[] = [];
 	export let selectedEntryId: string | undefined;
 
-	onMount(() => {
+	const scrollToEntry = () => {
 		if (selectedEntryId) {
 			const selectedEntry = document.getElementById(selectedEntryId);
 			if (selectedEntry) {
@@ -14,7 +14,12 @@
 				});
 			}
 		}
+	}
+
+	onMount(() => {
+		scrollToEntry();
 	});
+
 </script>
 
 <div class="flex flex-col items-center flex-grow px-5">

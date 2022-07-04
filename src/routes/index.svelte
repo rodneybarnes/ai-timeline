@@ -62,7 +62,8 @@
 
 	const handleIdSelected = ({ detail: { id } }) => {
 		$page.url.searchParams.set('id', id);
-		goto($page.url.href);
+		selectedEntryId = id;
+		window.location.href = $page.url.href;
 	};
 
 	// Local data
