@@ -54,6 +54,10 @@
 	);
 	let filteredEntries = timelineData.filterEntries(filterParams);
 
+	let selectedEntryId = URLHelper.getSelectedEntryId(
+		Array.from($page.url.searchParams.entries())
+	);
+
 	// Methods and handlers
 	const handleFilterUpdate = ({ detail: { filterName, selectedValue } }) => {
 		$page.url.searchParams.set(filterName, selectedValue);
@@ -84,5 +88,5 @@
 		on:filterUpdated={handleFilterUpdate}
 		on:clearParams={handleClearParams}
 	/>
-	<Timeline entries={filteredEntries} on:idSelected={handleIdSelected}/>
+	<Timeline entries={filteredEntries} {selectedEntryId} on:idSelected={handleIdSelected}/>
 </div>

@@ -23,6 +23,14 @@ class URLHelper {
     static #mapFilterParam([key, value]: [string, string]): FilterParam {
         return { by: key, value };
     }
+
+    /**
+     * Returns the value of the id param if it exists.
+     * @param urlSearchParams The query parameters in the URL.
+     * @returns {string | undefined} The value if found, otherwise undefined
+     */
+    static getSelectedEntryId = (urlSearchParams: [string, string][]): string | undefined =>
+        urlSearchParams.find(([key]) => key === 'id')?.[1];
 }
 
 export default URLHelper;
