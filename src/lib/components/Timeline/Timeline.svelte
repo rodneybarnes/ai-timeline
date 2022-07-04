@@ -6,6 +6,6 @@
 
 <div class="flex flex-col items-center flex-grow px-5">
 	{#each entries as entry, index}
-		<TimelineEntry {entry} {index} />
+		<TimelineEntry {entry} {index} on:idSelected/>
 	{/each}
 </div>

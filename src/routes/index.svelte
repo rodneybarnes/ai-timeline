@@ -69,6 +69,11 @@
 		filterParams = [];
 		filteredEntries = [...timelineData.entries];
 	};
+
+	const handleIdSelected = ({ detail: { id }}) => {
+		$page.url.searchParams.set('id', id);
+		goto($page.url.href);
+	}
 </script>
 
 <div class="flex flex-col items-center min-h-screen bg-zinc-900">
@@ -79,5 +84,5 @@
 		on:filterUpdated={handleFilterUpdate}
 		on:clearParams={handleClearParams}
 	/>
-	<Timeline entries={filteredEntries} />
+	<Timeline entries={filteredEntries} on:idSelected={handleIdSelected}/>
 </div>

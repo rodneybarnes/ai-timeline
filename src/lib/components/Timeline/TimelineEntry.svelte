@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { createEventDispatcher } from 'svelte';
 	import type { TimelineEntryType } from 'src/types/timeline-entry.type';
 	export let entry: TimelineEntryType = {
 		month: 0,
@@ -33,12 +34,21 @@
 
 	// Needs to be reactive, otherwise parts of the date will not re-render.
 	$: date = `${entry.day} ${month} ${entry.year}`;
+
+	const entryId = entry.headline.replace(/[^a-zA-Z0-9 ]/g, '').replace(/\s+/g, '-');
+
+    const dispatch = createEventDispatcher();
+    const dispatchIdSelected = () => dispatch('idSelected', {id: entryId});
 </script>
 
 <div
 	class="p-10 sm:mb-2 xl:-mt-4 text-white border-2 border-white rounded xl:min-w-[35%] xl:max-w-[35%] {stagger}"
 >
 	<p class="mb-2 text-sm">{date}</p>
-	<h3 class="mb-3 text-xl">{entry.headline}</h3>
+	<h3 id={entryId} class="mb-3 text-xl">
+        <button on:click={dispatchIdSelected}>
+            {entry.headline}
+        </button>
+	</h3>
 	<p>{entry.text}</p>
 </div>
