@@ -19,7 +19,7 @@
 		dispatch('filterUpdated', { filterName: 'orderBy', selectedValue: orderBy });
 </script>
 
-<div class="flex flex-col md:flex-row justify-center mb-10 p-5 bg-gray-700 w-full">
+<div class="flex flex-col md:flex-row justify-center mb-10 p-5 bg-neutral-800 w-full">
 	{#each filters as filter}
 		<FilterComponent
 			{filter}
