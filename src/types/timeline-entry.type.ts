@@ -6,7 +6,7 @@ export type TimelineEntryType = {
     month?: number,
     year: number,
     headline: string,
-    text?: string,
+    text: string,
     group?: string,
     type?: string,
     endYear: number,

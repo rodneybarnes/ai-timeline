@@ -32,7 +32,7 @@ class TimelineData {
             month: rawData.Month && Number(rawData.Month),
             year: Number(rawData.Year),
             headline: rawData.Headline,
-            text: rawData.Text,
+            text: rawData.Text || '',
             group: rawData.Group,
             type: rawData.Type,
             endYear: Number(rawData["End Year"])
