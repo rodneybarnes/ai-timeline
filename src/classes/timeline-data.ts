@@ -6,7 +6,7 @@ import type { TimelineEntryType } from "../types/timeline-entry.type";
  * @class A class that encapsulates the timeline data and its properties.
  * @property {TimelineEntryType[]} data - The unfiltered data.
  * @property {TimelineEntryType[]} eras - The timeline entries classified as eras; these do not have specific timeline data in them, but rather are more like categories.
- * @property {string[]} groups - A list of the unique group categories that timeline entries may be associated with.
+ * @property {string[]} themes - A list of the unique categories that timeline entries may be associated with.
  * @property {TimelineEntryType[]} entries - The timeline data we want to display in the timeline.
  */
 class TimelineData {
@@ -33,7 +33,7 @@ class TimelineData {
             year: Number(rawData.Year),
             headline: rawData.Headline,
             text: rawData.Text || '',
-            group: rawData.Group,
+            theme: rawData.Group,
             type: rawData.Type,
             endYear: Number(rawData["End Year"])
         };
@@ -43,8 +43,8 @@ class TimelineData {
         return this.data.filter((datum) => datum.type === 'era');
     }
 
-    get groups() {
-        return [...new Set(this.data.filter((datum) => datum.group !== undefined).map((datum) => datum.group))];
+    get themes() {
+        return [...new Set(this.data.filter((datum) => datum.theme !== undefined).map((datum) => datum.theme))];
     }
 
     get entries() {
@@ -74,8 +74,8 @@ class TimelineData {
                 case 'era':
                     filteredEntries = this.#filterByEra(param.value, filteredEntries);
                     break;
-                case 'group':
-                    filteredEntries = this.#filterByGroup(param.value, filteredEntries);
+                case 'theme':
+                    filteredEntries = this.#filterByTheme(param.value, filteredEntries);
                     break;
                 case 'search':
                     filteredEntries = this.#filterByHeadlineAndText(param.value, filteredEntries);
@@ -110,17 +110,17 @@ class TimelineData {
     }
 
     /**
-     * Filters the timeline entries by the selected group.
-     * @param {string} group The group to filter by. 
+     * Filters the timeline entries by the selected theme.
+     * @param {string} theme The theme to filter by. 
      * @param entries The entries to filter on.
-     * @returns {TimelineEntryType[]} A list of timeline entries filtered by the selected group.
+     * @returns {TimelineEntryType[]} A list of timeline entries filtered by the selected theme.
      */
-    #filterByGroup(group: string, entries: TimelineEntryType[]): TimelineEntryType[] {
-        if (!group) {
+    #filterByTheme(theme: string, entries: TimelineEntryType[]): TimelineEntryType[] {
+        if (!theme) {
             return entries;
         }
 
-        return entries.filter((timeLineEntry) => timeLineEntry.group === group);
+        return entries.filter((timeLineEntry) => timeLineEntry.theme === theme);
     }
 
     /**

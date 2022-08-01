@@ -6,7 +6,7 @@
 		year: 0,
 		headline: '',
 		text: '',
-		group: '',
+		theme: '',
 		type: '',
 		endYear: 0
 	};
@@ -60,10 +60,10 @@
 		</button>
 	</h3>
 	<p>{entry.text}</p>
-    {#if entry.group}
+    {#if entry.theme}
         <div class="flex">
             <div class="flex-grow border-t border-gray-400 mt-7"></div>
         </div>
-        <p class="italic">{entry.group}</p>
+        <p class="italic">{entry.theme}</p>
     {/if}
 </div>

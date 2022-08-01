@@ -71,8 +71,8 @@
 		'era',
 		timelineData.eras.map((era) => era.headline)
 	);
-	const groupFilter = new Filter('group', timelineData.groups);
-	const filters: Filter[] = [eraFilter, groupFilter];
+	const themeFilter = new Filter('theme', timelineData.themes);
+	const filters: Filter[] = [eraFilter, themeFilter];
 
 	let filterParams: QueryParam[] = getQueryParams();
 	let filteredEntries = timelineData.filterEntries(filterParams);
