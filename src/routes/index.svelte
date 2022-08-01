@@ -81,7 +81,7 @@
 </script>
 
 <div class="flex flex-col items-center min-h-screen bg-zinc-900">
-	<Header />
+	<Header link='/about' linkText='About' />
 	<Filters
 		{filters}
 		{filterParams}

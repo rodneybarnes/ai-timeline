@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    a {
+        @apply text-blue-400;
+    }
+    a:hover {
+        @apply underline;
+    }
+    h2 {
+        @apply text-xl;
+        @apply pt-5;
+    }
+    h2, h3 {
+        @apply font-bold;
+        @apply -indent-0;
+    }
+    h2, h3, p, ul {
+        @apply mb-5;
+    }
+    sup {
+        @apply cursor-pointer;
+    }
+}
+
+@layer components {
+    .footnote {
+        @apply -indent-4;
+        @apply ml-5;
+        @apply text-base;
+        @apply italic;
+    }
+}
