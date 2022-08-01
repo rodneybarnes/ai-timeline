@@ -7,7 +7,7 @@ import type { RawTimelineEntryType } from "src/types/raw-timeline-entry.type";
  * @returns {Promise<RawTimelineEntryType>} The parsed timeline data.
  */
 export const fetchTimelineData = async (fetch: (url: string) => Promise<Response>): Promise<RawTimelineEntryType[]> => {
-    const url = 'https://opensheet.elk.sh/1xOrcYodnYn-mR9WCXsD-x6JxNWusemQD4gXuArqvaeA/Sheet1';
+    const url = 'https://opensheet.elk.sh/14ULsYVKSuyxj06Ng09lUK18LCkwei_GiwZf5zjixWeQ/_od1_';
     const response = await fetch(url);
     return await response.json();
 }
