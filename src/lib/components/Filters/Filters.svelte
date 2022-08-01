@@ -35,6 +35,6 @@
 		on:searchSubmitted={dispatchSearchAsFilterUpdate}
 		searchValue={filterParams.find((param) => param.key === 'search')?.value || ''}
 	/>
-	<button class="px-5 bg-neutral-800 text-white" on:click={dispatchClearParams}>Clear</button>
+	<button class="px-5 bg-neutral-800 text-white hover:bg-green-600" on:click={dispatchClearParams}>Clear</button>
 	
 </div>
