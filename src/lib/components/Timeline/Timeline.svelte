@@ -8,18 +8,18 @@
 	const scrollToEntry = () => {
 		if (selectedEntryId) {
 			const selectedEntry = document.getElementById(selectedEntryId);
-			if (selectedEntry) {
-				selectedEntry.scrollIntoView({
-					behavior: 'smooth'
+			setTimeout(function () {
+				selectedEntry?.scrollIntoView({
+					behavior: 'smooth',
+					block: 'start'
 				});
-			}
+			}, 100);
 		}
-	}
+	};
 
 	onMount(() => {
 		scrollToEntry();
 	});
-
 </script>
 
 <div class="flex flex-col items-center flex-grow px-5">
