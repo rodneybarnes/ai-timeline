@@ -10,4 +10,4 @@
         }
     }
 </script>
-<input type="search" bind:value={searchValue} on:keyup={dispatchSearch} class="mr-3" placeholder="Search"/>
+<input type="search" bind:value={searchValue} on:keyup={dispatchSearch} class="mr-3 bg-neutral-800 text-white p-2" placeholder="Search"/>

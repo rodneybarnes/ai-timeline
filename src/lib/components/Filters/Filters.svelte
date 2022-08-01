@@ -19,7 +19,11 @@
 		dispatch('filterUpdated', { filterName: 'orderBy', selectedValue: orderBy });
 </script>
 
-<div class="flex flex-col md:flex-row justify-center mb-10 p-5 bg-neutral-800 w-full">
+<div class="flex flex-col md:flex-row justify-center mb-10 p-5 w-full border-neutral-700 border-b-2">
+	<Order
+		on:orderUpdated={dispatchOrderAsQueryUpdate}
+		orderBy={filterParams.find((param) => param.key === 'orderBy')?.value}
+	/>
 	{#each filters as filter}
 		<FilterComponent
 			{filter}
@@ -31,9 +35,6 @@
 		on:searchSubmitted={dispatchSearchAsFilterUpdate}
 		searchValue={filterParams.find((param) => param.key === 'search')?.value || ''}
 	/>
-	<button class="bg-white px-5" on:click={dispatchClearParams}>Clear</button>
-	<Order
-		on:orderUpdated={dispatchOrderAsQueryUpdate}
-		orderBy={filterParams.find((param) => param.key === 'orderBy')?.value}
-	/>
+	<button class="px-5 bg-neutral-800 text-white" on:click={dispatchClearParams}>Clear</button>
+	
 </div>
