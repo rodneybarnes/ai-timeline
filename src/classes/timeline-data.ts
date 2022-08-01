@@ -51,6 +51,7 @@ class TimelineData {
                 .flat()
                 .filter((theme) => theme !== '')
                 .map((theme) => `${theme.charAt(0).toUpperCase()}${theme.slice(1).toLowerCase()}`)
+                .sort()
             )];
     }
 
