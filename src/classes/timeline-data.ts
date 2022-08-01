@@ -44,7 +44,14 @@ class TimelineData {
     }
 
     get themes() {
-        return [...new Set(this.data.filter((datum) => datum.theme !== undefined).map((datum) => datum.theme))];
+        return [...new Set(
+            this.data
+                .filter((datum) => datum.theme !== undefined)
+                .map((datum) => datum.theme.split(',').map((theme) => theme.trim()))
+                .flat()
+                .filter((theme) => theme !== '')
+                .map((theme) => `${theme.charAt(0).toUpperCase()}${theme.slice(1).toLowerCase()}`)
+            )];
     }
 
     get entries() {
