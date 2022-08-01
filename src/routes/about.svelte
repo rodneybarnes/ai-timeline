@@ -260,7 +260,7 @@
 			they build—are held accountable to the public, especially when it comes to vulnerable or
 			marginalized people. She obtained her JD/BCL from McGill University in 2017 and is a LL.M
 			Candidate and research affiliate at the Centre for Law, Technology and Society at the
-			University of Ottawa. Visit her website at <a href="www.yuanstevens.org"
+			University of Ottawa. Visit her website at <a href="https://www.yuanstevens.org"
 				>www.yuanstevens.org.</a
 			>
 		</p>
